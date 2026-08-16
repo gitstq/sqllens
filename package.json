@@ -1,0 +1,32 @@
+{
+  "name": "sqllens",
+  "version": "1.0.0",
+  "description": "SQLens — Zero-dependency, offline browser-based SQL formatter, syntax highlighter and structure visualizer. 零依赖、可离线的浏览器端 SQL 格式化与可视化调试器。",
+  "type": "commonjs",
+  "main": "index.html",
+  "keywords": [
+    "sql",
+    "formatter",
+    "beautifier",
+    "sql-formatter",
+    "visualizer",
+    "syntax-highlighting",
+    "zero-dependency",
+    "offline",
+    "developer-tools"
+  ],
+  "license": "MIT",
+  "author": "SQLens Contributors",
+  "scripts": {
+    "test": "node test/engine.test.js",
+    "start": "python3 -m http.server 8080",
+    "serve": "npx --yes serve -l 8080 ."
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gitstq/sqllens.git"
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="SQLens logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5eead4"/>
+      <stop offset="1" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#g)"/>
+  <g fill="#052e2a" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-weight="700">
+    <text x="12" y="27" font-size="20">S</text>
+    <text x="27" y="27" font-size="20">Q</text>
+    <text x="42" y="27" font-size="20">L</text>
+    <text x="12" y="48" font-size="13">lens</text>
+  </g>
+</svg>

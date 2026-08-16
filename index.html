@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SQLens — 零依赖、可离线的浏览器端 SQL 格式化与可视化调试器 | Zero-dependency offline SQL formatter & visualizer" />
+  <title>SQLens · SQL 格式化与结构可视化</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app" id="app" data-theme="dark">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-logo" src="assets/logo.svg" alt="SQLens logo" />
+        <div class="brand-text">
+          <span class="brand-name">SQLens</span>
+          <span class="brand-sub">SQL 格式化 · 结构可视化 · 语法高亮</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <label class="pill">
+          <select id="dialect" title="SQL 方言">
+            <option value="generic" selected>通用</option>
+            <option value="mysql">MySQL</option>
+            <option value="postgres">PostgreSQL</option>
+            <option value="sqlite">SQLite</option>
+            <option value="sqlserver">SQL Server</option>
+          </select>
+        </label>
+
+        <button id="btn-format" class="btn btn-primary" title="格式化 SQL (Ctrl+Enter)">
+          <span class="ico">✦</span> 格式化
+        </button>
+        <button id="btn-minify" class="btn" title="压缩为单行">压缩</button>
+        <button id="btn-copy" class="btn" title="复制结果">复制</button>
+        <button id="btn-theme" class="btn btn-icon" title="切换主题">◐</button>
+      </div>
+    </header>
+
+    <!-- 主工作区 -->
+    <main class="workspace">
+      <!-- 左侧：输入 -->
+      <section class="pane pane-input">
+        <div class="pane-head">
+          <span class="pane-title">输入 SQL</span>
+          <div class="pane-tools">
+            <select id="template" class="tiny-select" title="从模板加载">
+              <option value="">模板库…</option>
+              <option value="select-basic">SELECT 基础查询</option>
+              <option value="select-join">JOIN 多表连接</option>
+              <option value="select-group">聚合分组查询</option>
+              <option value="subquery">子查询</option>
+              <option value="case-when">CASE WHEN 分支</option>
+              <option value="window">窗口函数</option>
+              <option value="insert">INSERT 插入</option>
+              <option value="update">UPDATE 更新</option>
+              <option value="create-table">CREATE TABLE 建表</option>
+              <option value="cte">CTE 公用表表达式</option>
+            </select>
+            <button id="btn-clear" class="btn btn-icon" title="清空输入">✕</button>
+          </div>
+        </div>
+        <div class="editor-wrap">
+          <textarea id="input" class="editor" spellcheck="false"
+            placeholder="在此粘贴或输入 SQL…&#10;例如：SELECT a,b FROM users WHERE age>18&#10;然后点击「格式化」或按 Ctrl+Enter">SELECT u.id, u.name, o.amount, o.created_at
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+WHERE u.age >= 18 AND o.amount > 100
+ORDER BY o.created_at DESC
+LIMIT 50</textarea>
+        </div>
+        <div class="pane-foot">
+          <span id="input-stats" class="stats"></span>
+        </div>
+      </section>
+
+      <!-- 右侧：输出 -->
+      <section class="pane pane-output">
+        <div class="pane-head">
+          <span class="pane-title">输出结果</span>
+          <div class="pane-tools">
+            <label class="check" title="切换语法高亮">
+              <input type="checkbox" id="highlight" checked /> 高亮
+            </label>
+            <label class="check" title="逗号放行首">
+              <input type="checkbox" id="commaFirst" /> 逗号前置
+            </label>
+            <select id="case" class="tiny-select" title="关键字大小写">
+              <option value="upper">大写</option>
+              <option value="lower">小写</option>
+              <option value="preserve">保持</option>
+            </select>
+          </div>
+        </div>
+        <div id="output" class="output" tabindex="0" aria-label="格式化后的 SQL"></div>
+        <div class="pane-foot">
+          <span id="output-stats" class="stats"></span>
+        </div>
+      </section>
+
+      <!-- 底部：结构分析 -->
+      <section class="analyzer" id="analyzer">
+        <div class="pane-head">
+          <span class="pane-title">结构分析</span>
+          <span class="pane-hint" id="analyzer-summary"></span>
+        </div>
+        <div id="structure" class="structure"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="js/sql-tokenizer.js"></script>
+  <script src="js/sql-formatter.js"></script>
+  <script src="js/sql-parser.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
